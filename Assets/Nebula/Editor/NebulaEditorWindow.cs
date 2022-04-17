@@ -60,6 +60,7 @@ public class NebulaEditorWindow : EditorWindow
         {
             var element = starInspectorUXML.CloneTree();
 
+            // Set the bindingPaths for this element of the array
             var starNameTextField = element.Q<TextField>("StarName");
             starNameTextField.bindingPath = $"{nameof(_nebulaSettings.starPresets)}.Array.data[{i}].{nameof(StarData.starName)}";
             element.Q<ColorField>("StarColor").bindingPath = $"{nameof(_nebulaSettings.starPresets)}.Array.data[{i}].{nameof(StarData.starColor)}";
@@ -78,6 +79,10 @@ public class NebulaEditorWindow : EditorWindow
                 // Change the text of the Foldout when the bound StarName value changes
                 foldout.text = evt.newValue;
             });
+
+            // Persist the state of the foldout toggle
+            foldout.viewDataKey = $"starPresetsFoldout_{i}";
+
             foldout.Add(element);
             elementContainer.Add(foldout);
 
@@ -88,6 +93,9 @@ public class NebulaEditorWindow : EditorWindow
             // Create a spawn button
             var spawnButton = CreateSpawnButton(i);
             elementContainer.Add(spawnButton);
+
+            // Persist the state of the ScrollView scroll bar position
+            scrollView.viewDataKey = "starPresetsScrollView";
 
             scrollView.Add(elementContainer);
         }
