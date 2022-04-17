@@ -11,7 +11,7 @@ public class NebulaEditorWindow : EditorWindow
     
     private NebulaSettings _nebulaSettings;
     private SerializedObject _serializedNebulaSettings;
-    
+
     [MenuItem("Fault In Our Stars/Nebula")]
     public static void ShowWindow()
     {
@@ -28,6 +28,7 @@ public class NebulaEditorWindow : EditorWindow
             gameObj.AddComponent<NebulaSettings>();
             _nebulaSettings = gameObj.GetComponent<NebulaSettings>();
         }
+        _serializedNebulaSettings = new SerializedObject(_nebulaSettings);
 
         // Import UXML
         nebulaUXML.CloneTree(rootVisualElement);
@@ -35,11 +36,9 @@ public class NebulaEditorWindow : EditorWindow
         // Import USS
         rootVisualElement.styleSheets.Add(nebulaUSS);
 
-        _serializedNebulaSettings = new SerializedObject(_nebulaSettings);
-
         PrepareScrollView();
         PrepareCreateNewPresetButton();
-        
+
         rootVisualElement.Bind(_serializedNebulaSettings);
     }
 
@@ -48,6 +47,7 @@ public class NebulaEditorWindow : EditorWindow
         var scrollView = rootVisualElement.Q<ScrollView>("StarPresetsScrollView");
         scrollView.Unbind();
         scrollView.Clear();
+
         for (var i = 0; i < _nebulaSettings.starPresets.Count; i++)
         {
             var element = starInspectorUXML.CloneTree();
@@ -61,7 +61,7 @@ public class NebulaEditorWindow : EditorWindow
             element.Q<FloatField>("GravityWellRadiusFloatField").bindingPath = $"{nameof(_nebulaSettings.starPresets)}.Array.data[{i}].{nameof(StarData.gravityWellRadius)}";
 
             // Create the container for the scroll view, spawn, and delete buttons
-            var elementContainer = new VisualElement() { name = "ScrollViewContainer", style = { borderTopWidth = i == 0 ? 1.0f : 0.0f } };
+            var elementContainer = new VisualElement() { name = "ScrollViewContainer" };
 
             // Create a new Foldout to contain the star preset
             var foldout = new Foldout();
@@ -78,7 +78,7 @@ public class NebulaEditorWindow : EditorWindow
             elementContainer.Add(deleteButton);
             
             // Create a spawn button
-            var spawnButton = CreateSpawnButton();
+            var spawnButton = CreateSpawnButton(i);
             elementContainer.Add(spawnButton);
             
             scrollView.Add(elementContainer);
@@ -129,20 +129,33 @@ public class NebulaEditorWindow : EditorWindow
         return deleteButton;
     }
 
-    private Button CreateSpawnButton()
+    private Button CreateSpawnButton(int spawnIndex)
     {
         var spawnButton = new Button
         {
             name = "SpawnButton",
             text = "Spawn Star",
         };
+        spawnButton.clicked += () =>
+        {
+            SpawnStarFromPreset(spawnIndex);
+        };
 
         return spawnButton;
     }
 
+    private void SpawnStarFromPreset(int spawnIndex)
+    {
+        var star = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        star.transform.position = _nebulaSettings.spawnLocation;
+        var starComponent = star.AddComponent<Star>();
+        starComponent.starData = _nebulaSettings.starPresets[spawnIndex];
+        starComponent.OnValidate();
+    }
+
     private void PrepareCreateNewPresetButton()
     {
-        var button = rootVisualElement.Q<Button>("CreateNewPreset");
+        var button = rootVisualElement.Q<Button>("CreateNewPresetButton");
         button.clicked += () =>
         {
             _nebulaSettings.starPresets.Add(new StarData());

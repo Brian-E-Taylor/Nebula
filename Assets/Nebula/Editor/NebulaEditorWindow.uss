@@ -19,8 +19,10 @@
 
 #ScrollViewContainer {
     flex-direction: row;
-    border-width: 1px;
-    border-color: grey;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-color: #808080;
     padding-top: 2px;
     padding-bottom: 2px;
 }

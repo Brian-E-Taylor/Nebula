@@ -5,7 +5,7 @@ public class Star : MonoBehaviour
     public StarData starData;
     private MeshRenderer _renderer;
 
-    void OnValidate()
+    public void OnValidate()
     {
         starData ??= new StarData();
         _renderer ??= gameObject.GetComponent<MeshRenderer>();
