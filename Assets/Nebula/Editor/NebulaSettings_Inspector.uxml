@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <ui:Toggle label="Ask For Confirmation Before Deleting Star Preset" name="DeleteConfirmationToggle" binding-path="askForConfirmationBeforeDeletingPreset" />
     <ui:VisualElement name="ButtonContainer" style="flex-direction: row; justify-content: space-around; align-items: stretch;">
-        <ui:Button text="Save to JSON" display-tooltip-when-elided="true" name="SaveToJSONButton" style="width: 130px;" />
-        <ui:Button text="Load From JSON" display-tooltip-when-elided="true" name="LoadFromJSONButton" style="width: 130px;" />
+        <ui:Button text="Save to JSON File" display-tooltip-when-elided="true" name="SaveToJSONFileButton" style="width: 160px;" />
+        <ui:Button text="Load From JSON File" display-tooltip-when-elided="true" name="LoadFromJSONFileButton" style="width: 160px;" />
     </ui:VisualElement>
 </ui:UXML>
