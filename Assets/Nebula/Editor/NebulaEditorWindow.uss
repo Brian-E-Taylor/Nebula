@@ -1,0 +1,30 @@
+#DeleteButton {
+    color: white;
+    font-size: 9px;
+    width: 15px;
+    height: 15px;
+    margin-left: -15px;
+    top: 1px;
+    right: 1px;
+    background-color: #a90018;
+}
+
+#DeleteButton:hover {
+    background-color: red;
+}
+
+#DeleteButton:active {
+    background-color: #ff8489;
+}
+
+#ScrollViewContainer {
+    flex-direction: row;
+    border-width: 1px;
+    border-color: grey;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+Foldout {
+    flex-grow: 1;
+}

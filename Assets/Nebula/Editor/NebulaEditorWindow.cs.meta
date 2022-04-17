@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9da8a76f9e891e44f9ee6005e3f956fa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - nebulaUXML: {fileID: 9197481963319205126, guid: 3b7a6028bfdc52642982bf88af36a259, type: 3}
+  - nebulaUSS: {fileID: 7433441132597879392, guid: ecd616897e00c604dbcd8eacf0520c6b, type: 3}
+  - starInspectorUXML: {fileID: 9197481963319205126, guid: 07d767a868ce6164a94de30a4f2fb372, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

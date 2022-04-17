@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:TextField picking-mode="Ignore" label="Star Name" binding-path="starData.starName" name="StarName" />
+    <uie:ColorField label="Star Color" value="#FF0A00FF" binding-path="starData.starColor" name="StarColor" />
+    <ui:VisualElement name="StarRadiusContainer" style="flex-direction: row;">
+        <ui:Slider picking-mode="Ignore" label="Star Radius" value="42" high-value="100" binding-path="starData.starRadius" name="StarRadiusSlider" style="flex-grow: 1;" />
+        <uie:FloatField value="42.2" name="StarRadiusFloatField" binding-path="starData.starRadius" style="width: 50px; justify-content: flex-start;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="GravityWellRadiusContainer" style="flex-direction: row;">
+        <ui:Slider picking-mode="Ignore" label="Gravity Well Radius" value="42" high-value="100" binding-path="starData.gravityWellRadius" name="GravityWellRadiusSlider" style="flex-grow: 1;" />
+        <uie:FloatField value="42.2" name="GravityWellRadiusFloatField" binding-path="starData.gravityWellRadius" style="width: 50px;" />
+    </ui:VisualElement>
+</ui:UXML>
