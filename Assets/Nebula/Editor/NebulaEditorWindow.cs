@@ -8,7 +8,7 @@ public class NebulaEditorWindow : EditorWindow
     public VisualTreeAsset nebulaUXML;
     public StyleSheet nebulaUSS;
     public VisualTreeAsset starInspectorUXML;
-    
+
     private NebulaSettings _nebulaSettings;
     private SerializedObject _serializedNebulaSettings;
 
@@ -32,9 +32,17 @@ public class NebulaEditorWindow : EditorWindow
 
         // Import UXML
         nebulaUXML.CloneTree(rootVisualElement);
-        
+
         // Import USS
         rootVisualElement.styleSheets.Add(nebulaUSS);
+
+        var arraySizeIntegerField = new IntegerField
+        {
+            bindingPath = $"{nameof(_nebulaSettings.starPresets)}.Array.size",
+            style = { display = DisplayStyle.None }
+        };
+        arraySizeIntegerField.RegisterValueChangedCallback(evt => PrepareScrollView());
+        rootVisualElement.Add(arraySizeIntegerField);
 
         PrepareScrollView();
         PrepareCreateNewPresetButton();
@@ -61,7 +69,7 @@ public class NebulaEditorWindow : EditorWindow
             element.Q<FloatField>("GravityWellRadiusFloatField").bindingPath = $"{nameof(_nebulaSettings.starPresets)}.Array.data[{i}].{nameof(StarData.gravityWellRadius)}";
 
             // Create the container for the scroll view, spawn, and delete buttons
-            var elementContainer = new VisualElement() { name = "ScrollViewContainer" };
+            var elementContainer = new VisualElement { name = "ScrollViewContainer" };
 
             // Create a new Foldout to contain the star preset
             var foldout = new Foldout();
@@ -76,11 +84,11 @@ public class NebulaEditorWindow : EditorWindow
             // Create a delete button
             var deleteButton = CreateDeleteButton(i);
             elementContainer.Add(deleteButton);
-            
+
             // Create a spawn button
             var spawnButton = CreateSpawnButton(i);
             elementContainer.Add(spawnButton);
-            
+
             scrollView.Add(elementContainer);
         }
         scrollView.Bind(_serializedNebulaSettings);
@@ -96,7 +104,7 @@ public class NebulaEditorWindow : EditorWindow
         deleteButton.clicked += () =>
         {
             var deletePreset = true;
-            
+
             // Check for confirmation
             if (_nebulaSettings.askForConfirmationBeforeDeletingPreset)
             {
@@ -123,7 +131,6 @@ public class NebulaEditorWindow : EditorWindow
                 _nebulaSettings.starPresets.RemoveAt(deleteIndex);
                 _serializedNebulaSettings.Update();
                 EditorUtility.SetDirty(_nebulaSettings);
-                PrepareScrollView();
             }
         };
         return deleteButton;
@@ -161,7 +168,6 @@ public class NebulaEditorWindow : EditorWindow
             _nebulaSettings.starPresets.Add(new StarData());
             _serializedNebulaSettings.Update();
             EditorUtility.SetDirty(_nebulaSettings);
-            PrepareScrollView();
         };
     }
 }
