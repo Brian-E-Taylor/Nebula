@@ -11,10 +11,7 @@ public class Star : MonoBehaviour
         _renderer ??= gameObject.GetComponent<MeshRenderer>();
         _renderer.sharedMaterial ??= new Material(Shader.Find("Default"));
 
-        if (!string.IsNullOrEmpty(starData.starName))
-            name = starData.starName;
-        else
-            starData.starName = name;
+        name = starData.starName;
 
         transform.localScale = new Vector3(starData.starRadius * 2f, starData.starRadius * 2f, starData.starRadius * 2f);
         _renderer.sharedMaterial.color = starData.starColor;
