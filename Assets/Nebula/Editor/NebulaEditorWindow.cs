@@ -21,7 +21,7 @@ public class NebulaEditorWindow : EditorWindow
 
     public void CreateGUI()
     {
-        _nebulaSettings = GameObject.Find("NebulaSettings").GetComponent<NebulaSettings>();
+        _nebulaSettings = GameObject.Find("NebulaSettings")?.GetComponent<NebulaSettings>();
         if (_nebulaSettings == null)
         {
             var gameObj = new GameObject("NebulaSettings");
