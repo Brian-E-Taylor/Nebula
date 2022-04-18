@@ -146,6 +146,8 @@ public class NebulaEditorWindow : EditorWindow
             if (deletePreset)
             {
                 _nebulaSettings.starPresets.RemoveAt(deleteIndex);
+
+                // Make sure the settings object is updated and dirtied so the Editor knows the scene is in an un-saved state
                 _serializedNebulaSettings.Update();
                 EditorUtility.SetDirty(_nebulaSettings);
             }
@@ -183,6 +185,8 @@ public class NebulaEditorWindow : EditorWindow
         button.clicked += () =>
         {
             _nebulaSettings.starPresets.Add(new StarData());
+
+            // Make sure the settings object is updated and dirtied so the Editor knows the scene is in an un-saved state
             _serializedNebulaSettings.Update();
             EditorUtility.SetDirty(_nebulaSettings);
         };

@@ -2,6 +2,6 @@
     <ui:Toggle label="Ask For Confirmation Before Deleting Star Preset" name="DeleteConfirmationToggle" binding-path="askForConfirmationBeforeDeletingPreset" />
     <ui:VisualElement name="ButtonContainer" style="flex-direction: row; justify-content: space-around; align-items: stretch;">
         <ui:Button text="Save to JSON File" display-tooltip-when-elided="true" name="SaveToJSONFileButton" style="width: 160px;" />
-        <ui:Button text="Load From JSON File" display-tooltip-when-elided="true" name="LoadFromJSONFileButton" style="width: 160px;" />
+        <ui:Button text="Load from JSON File" display-tooltip-when-elided="true" name="LoadFromJSONFileButton" style="width: 160px;" />
     </ui:VisualElement>
 </ui:UXML>
