@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -53,6 +54,11 @@ public class NebulaEditorWindow : EditorWindow
     private void PrepareScrollView()
     {
         var scrollView = rootVisualElement.Q<ScrollView>("StarPresetsScrollView");
+
+        // Before clearing the view, record the state of foldouts so we can re-apply them upon creation
+        var foldoutStates = new Dictionary<string, bool>();
+        scrollView.Query<Foldout>().ForEach(foldout => foldoutStates.Add(foldout.viewDataKey, foldout.value));
+
         scrollView.Unbind();
         scrollView.Clear();
 
@@ -73,7 +79,10 @@ public class NebulaEditorWindow : EditorWindow
             var elementContainer = new VisualElement { name = "ScrollViewContainer" };
 
             // Create a new Foldout to contain the star preset
-            var foldout = new Foldout();
+            // Check if the foldout is present in the dictionary, in which case it already existed and has a foldout state.
+            // Otherwise it is newly created and the foldout state should be initialized to true
+            var foldoutValue = !foldoutStates.ContainsKey(_nebulaSettings.starPresets[i].guid) || foldoutStates[_nebulaSettings.starPresets[i].guid];
+            var foldout = new Foldout { value = foldoutValue };
             starNameTextField.RegisterValueChangedCallback(evt =>
             {
                 // Change the text of the Foldout when the bound StarName value changes
@@ -81,7 +90,7 @@ public class NebulaEditorWindow : EditorWindow
             });
 
             // Persist the state of the foldout toggle
-            foldout.viewDataKey = $"starPresetsFoldout_{i}";
+            foldout.viewDataKey = _nebulaSettings.starPresets[i].guid;
 
             foldout.Add(element);
             elementContainer.Add(foldout);
