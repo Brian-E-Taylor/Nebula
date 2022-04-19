@@ -175,7 +175,7 @@ public class NebulaEditorWindow : EditorWindow
         var star = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         star.transform.position = _nebulaSettings.spawnLocation;
         var starComponent = star.AddComponent<Star>();
-        starComponent.starData = _nebulaSettings.starPresets[spawnIndex];
+        starComponent.starData = new StarData(_nebulaSettings.starPresets[spawnIndex]);
         starComponent.OnValidate();
     }
 
